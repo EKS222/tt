@@ -1,0 +1,135 @@
+/* Container Styling */
+.class-management-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+.class-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.class-management-header h2 {
+  font-size: 24px;
+  color: #0056b3;
+  margin-bottom: 10px;
+}
+
+.add-class-btn {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-class-btn:hover {
+  background-color: #218838;
+}
+
+/* Class List Styling */
+.class-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.class-card {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.class-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.class-card h3 {
+  font-size: 18px;
+  color: #0056b3;
+  margin-bottom: 10px;
+}
+
+.class-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Action Buttons */
+.class-card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.edit-class-btn,
+.delete-class-btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.edit-class-btn {
+  background-color: #ffc107;
+  color: white;
+}
+
+.edit-class-btn:hover {
+  background-color: #e0a800;
+}
+
+.delete-class-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-class-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .class-management-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .add-class-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .class-list {
+    grid-template-columns: 1fr;
+  }
+
+  .class-card-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,75 @@
+.staff-list-container {
+  max-width: 100%;
+}
+
+.staff-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.staff-card {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.staff-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.staff-card h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.staff-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* Action Dropdown */
+.action-dropdown {
+  position: relative;
+}
+
+.action-dropdown button {
+  background-color: #0056b3;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.action-dropdown ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.action-dropdown:hover ul {
+  display: block;
+}
+
+.action-dropdown ul li {
+  padding: 10px;
+  cursor: pointer;
+  color: #0056b3;
+  transition: background 0.2s ease;
+}
+
+.action-dropdown ul li:hover {
+  background: #f4f4f9;
+}
