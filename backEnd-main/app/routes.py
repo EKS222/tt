@@ -5,11 +5,63 @@ import logging
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from app.jobs import process_term_rollover, promote_students
+from functools import wraps
+from app import limiter
+from flask_jwt_extended import get_jwt_identity
+import africastalking
+from werkzeug.local import LocalProxy
+
 
 logging.basicConfig(level=logging.DEBUG)
 routes = Blueprint('routes', __name__)
 
+
+# Initialize Africa's Talking
+username = "sandbox"  # Replace with 'sandbox' for testing or your live username
+api_key = "atsk_40c197e2d851fbe41d60858acf77b6544020c3cefc1e7ba05d5b309bf343a1136d5efd33"
+
+africastalking.initialize(username, api_key)
+sms = africastalking.SMS
+
+@routes.route('/send-reminders', methods=['POST'])
+def send_reminders():
+    data = request.json
+    threshold = data.get('threshold', 0)
+
+    # Fetch students with balance below the threshold
+    students = Student.query.filter(Student.balance > threshold).all()
+    if not students:
+        return jsonify({"message": "No students below the threshold"}), 404
+
+    # Prepare messages
+    messages = []
+    for student in students:
+        # Check if phone starts with '7' and prepend +254
+        phone_number = student.phone
+        if phone_number.startswith("7"):
+            phone_number = "+254" + phone_number[1:]  # Replace the leading '7' with '+254'
+
+        # Create personalized message
+        personalized_message = f"Dear {student.name}, your balance is {student.balance}. Please settle it soon."
+
+        try:
+            # Send SMS
+            response = sms.send(
+                message=personalized_message,
+                recipients=[phone_number],  # Use the modified phone number
+                sender_id="MySchool"  # Use your approved Sender ID
+            )
+            messages.append({"student": student.name, "response": response})
+
+        except Exception as e:
+            messages.append({"student": student.name, "error": str(e)})
+
+    # Return the list of responses after processing all students
+    return jsonify(messages), 200
+
+
 @routes.route('/login', methods=['POST'])
+@limiter.limit("3 per minute")
 def login():
     try:
         data = request.get_json()
@@ -584,7 +636,6 @@ def process_rollover():
         return jsonify({"message": "No term found to process rollover"}), 400
 
 @routes.route('/promote-students', methods=['POST'])
-
 def promote_students_route():
     promote_students()  # Call the function for student promotion
     return jsonify({"message": "students rollover was successfulll. congratulations 🎉"}),200

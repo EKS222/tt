@@ -24,7 +24,6 @@ const App = () => {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/Payments"element={<LoginForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/Payments" element={<PaymentTable />} />
           <Route path="/students" element={<StudentList />} />

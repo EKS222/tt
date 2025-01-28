@@ -4,12 +4,16 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from .config import Config
 from werkzeug.security import generate_password_hash, check_password_hash  # Updated hashing method
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 
 
 
 # Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
+limiter = Limiter(key_func=get_remote_address)  # Initialize Limiter here
 
 
 def create_app():
@@ -25,6 +29,7 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
+    limiter.init_app(app)
 
 
     # Import and register routes

@@ -8,7 +8,7 @@ const StaffList = () => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [error, setError] = useState(null);
 
-  const API_URL = "https://49eca945-a85d-4041-8329-c8ccc69e464c-00-37km72cvzyu68.janeway.replit.dev:5000";
+  const API_URL = "https://c70a35f6-0f51-4320-86f4-c560837fc183-00-247oocffqp4w9.worf.replit.dev:5000";
 
   // Fetch staff list
   useEffect(() => {

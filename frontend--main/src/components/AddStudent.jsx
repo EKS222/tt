@@ -7,11 +7,13 @@ const AddStudent = () => {
   const [phone, setPhone] = useState('');
   const [admission_number, setAdmission_number] = useState('');
   const [grade, setGrade] = useState('');  // Initialize as empty string for now
-  const [balance, setBalance] = useState(0.0);
+  const [arrears, setArrears] = useState(0.0);
+  const [prepayment, setPrepayment] = useState(0.0);
   const [use_bus, setUse_bus] = useState(false);
   const [destination_id, setDestination_id] = useState('');
   const [is_boarding, setIs_boarding] = useState(false);
   const [grades, setGrades] = useState([]);
+  const [balance, setBalance] = useState(0.0)
   const [busDestinations, setBusDestinations] = useState([]);
   const [message, setMessage] = useState('');
 
@@ -19,7 +21,7 @@ const AddStudent = () => {
     const fetchData = async () => {
       try {
         // Fetch grades and bus destinations
-        const gradeResponse = await axios.get('/https://c70a35f6-0f51-4320-86f4-c560837fc183-00-247oocffqp4w9.worf.replit.dev:5000/grades');
+        const gradeResponse = await axios.get('https://c70a35f6-0f51-4320-86f4-c560837fc183-00-247oocffqp4w9.worf.replit.dev:5000/grades');
         setGrades(gradeResponse.data);
 
         const destinationResponse = await axios.get('https://c70a35f6-0f51-4320-86f4-c560837fc183-00-247oocffqp4w9.worf.replit.dev:5000/destinations');
@@ -47,6 +49,8 @@ const AddStudent = () => {
       admission_number: admission_number,
       grade_id: grade,  // grade_id instead of grade (since your Student model uses grade_id)
       balance,
+      arrears,
+      prepayment,
       is_boarding: is_boarding,
       use_bus: use_bus,
       destination_id: use_bus ? destination_id : null,
@@ -122,7 +126,15 @@ const AddStudent = () => {
         )}
         <div>
           <label>Balance:</label>
-          <input type="number" value={balance} onChange={(e) => setBalance(parseFloat(e.target.value))} />
+          <input type="number" value={arrears} onChange={(e) => setBalance(parseFloat(e.target.value))} />
+        </div>
+        <div>
+          <label>arrears:</label>
+          <input type="number" value={arrears} onChange={(e) => setBalance(parseFloat(e.target.value))} />
+        </div>
+        <div>
+          <label>prepayment:</label>
+          <input type="number" value={prepayment} onChange={(e) => setBalance(parseFloat(e.target.value))} />
         </div>
         <button type="submit">Add Student</button>
       </form>
